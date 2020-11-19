@@ -1,0 +1,30 @@
+﻿@model WebApplication1.ViewModel.LobbyViewModel
+@inject Microsoft.AspNetCore.Identity.SignInManager<ApplicationUser> SignInManager
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Criar</title>
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css" />
+</head>
+<body>
+    @User.Identity.Name
+    @if (SignInManager.IsSignedIn(User)) {
+        <a class="btn btn-primary" asp-controller="Account" asp-action="Logout">Sair</a>
+    }
+    else {
+        <button>registrar</button>
+    }
+
+    <a class="btn btn-primary" asp-controller="Sala" asp-action="Cadastrar">Cadastrar sala</a>
+
+    @foreach (WebApplication1.Models.Sala r in Model.Salas) {
+        <a class="btn btn-primary" asp-route-id="@r.Id" asp-controller="Sala" asp-action="Index">@r.Titulo</a><!-- -->
+    }
+</body> 
+</html>

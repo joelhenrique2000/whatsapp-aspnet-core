@@ -1,0 +1,57 @@
+﻿@model WebApplication1.ViewModel.SalaIndexViewModel
+@{ 
+    var nomeUsuario = ViewBag.nome;
+}
+
+<div class="header"> 
+    <div class="header__logo">RChat</div>
+    <div class="header__menu">a b c d e</div>
+</div>
+ 
+<div class="container">
+    <div class="container__box container__box--padrao container__box--videos">
+        <div class="video-container">
+            <div class="video-container__principal">
+                @Model?.NomeUsuario
+                @ViewData["nome"]
+                @ViewData["sala"]
+                <div class="videoArea">
+                    <video id="localVideo" autoplay playsinline></video>
+                </div>
+            </div>
+            <div class="video-container__secundario">
+                <form asp-action="AdicionarMembro" asp-controller="Sala" method="post" class="m-2">
+                    <div asp-validation-summary="All"></div>
+                    <input disabled hidden type="text" id="NomeSala" value="@ViewData["sala"]" />
+                    <div class="form-group">
+                        <label asp-for="NomeUsuario">Email:</label>
+                        <input asp-for="NomeUsuario" class="form-control" />
+                    </div>
+                    <button type="submit" class="btn btn-primary">Adicionar membro</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="container__box container__box--padrao container__box--chat">
+        <div class="chat-container">
+            <div class="chat-container__conversa"> 
+
+                <div class="chat-container__mensagens"> 
+                    <div id="mensagens" class="mensagem"></div>
+                </div>
+                 
+                <div class="chat-container__enviar">
+                    <input disabled hidden type="text" id="userInput" value="@ViewData["nome"]" />
+                    <input disabled hidden type="text" id="salaID" value="@ViewData["sala"]" />
+                    <input class="chat-container__input-enviar" type="text" id="messageInput" />
+                </div>
+
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <script src="~/js/signalr/dist/browser/signalr.js"></script>
+    <script type="text/javascript" src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+    <script src="~/js/chat.js"></script>
+
